@@ -1,15 +1,65 @@
-GEOCODE_KEY = "AIzaSyDs-UQjbNInhtGOe9w6c0knbfdEAmcEmDs"
+import requests
+import json
+import math
+import csv
+
+from .keys import GEOCODE_KEY
 
 class Address():
-    def __init__(self, str_address):
-        self.str_address = str_address
-    def is_valid(self):
-        return True
-    def get_coords(self):
-        pass
-    def compare_all(self):
-        pass
-    def distance_to(self, dest):
-        return "43739 Montrose Ave.\nFremont, Ca 94538\n10 mi"
-    def find_store(self):
-        return "43739 Montrose Ave.\nFremont, Ca 94538\n10 mi"
+    def __init__(self, query_params):
+        self.geocode_json = self.geocode(query_params)
+        self.unit = query_params["unit"]
+        self.output = query_params["output"]
+
+    # gets coordinates from google places, returns json response
+    def geocode(self, query_params):
+        key = query_params['key']
+        val = query_params['value']
+        url = "https://maps.googleapis.com/maps/api/geocode/json?{}={}&key={}".format(key, val, GEOCODE_KEY)
+        res = requests.get(url)
+        return res.json()
+
+    def get_closest_store(self, filename):
+        """
+        returns closest store in miles from csv stores list
+        """
+        with open(filename) as store_locations:
+            stores = csv.DictReader(store_locations)
+            d = self.calculate_distance(next(stores))
+            closest = {"distance": float(d)}
+            for store in stores:
+                distance = self.calculate_distance(store)
+                distance_string = "{} {}".format(distance, self.unit)
+                if distance < closest['distance']:
+                    closest = {'store': store, 'distance': distance, 'unit': self.unit}
+            return closest
+
+    def extract_coords(self):
+        '''
+        gets coords from json results of geocode function
+        if multiple results, uses first match by default
+        '''
+        if self.geocode_json['results']:
+            return self.geocode_json['results'][0]['geometry']['location']
+
+    def calculate_distance(self, store):
+        '''
+        Haversine formula 
+        as outlined by Chris Veness here: 
+        http://www.movable-type.co.uk/scripts/latlong.html
+        '''
+        coords = self.extract_coords()
+        if self.unit == "km":
+            R = 6371 # radius of the earth in km
+        else:
+            R = 3959 # radius of the earth in miles (returns miles by default)
+        lon1 = float(store['Longitude'])
+        lat1 = float(store['Latitude'])
+        lon2 = coords['lng']
+        lat2 = coords['lat']
+        dlon = math.radians(lon2 - lon1)
+        dlat = math.radians(lat2 - lat1)
+        a = abs((math.sin(dlat/2))**2 + math.cos(lat1) * math.cos(lat2) * (math.sin(dlon/2))**2)
+        c = 2 * math.atan2( math.sqrt(a), math.sqrt(1-a) ) 
+        distance = R * c 
+        return distance

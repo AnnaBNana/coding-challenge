@@ -1,3 +1,4 @@
 [
-  "find_store/tests/addresstest.py::test_is_valid"
+  "find_store/tests/addresstest.py::test_geocode[geocode_obj0-True]",
+  "find_store/tests/addresstest.py::test_geocode[geocode_obj1-False]"
 ]
