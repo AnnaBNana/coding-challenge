@@ -1,0 +1,5 @@
+{
+  "find_store/tests/addresstest.py::test_distance": true,
+  "find_store/tests/addresstest.py::test_find_store": true,
+  "find_store/tests/addresstest.py::test_is_valid": true
+}
