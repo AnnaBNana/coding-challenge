@@ -1,4 +1,15 @@
 [
-  "test/addresstest.py::FindStoreTestCase::test_db_servers_ubuntu_ami_in_australia",
-  "test/addresstest.py::FindStoreTestCase::test_with_empty_args"
+  "find_store/test/test_find_store.py::test_main[--address='190 Ryland st.'-0]",
+  "find_store/test/test_find_store.py::test_main[--zip=95112-0]",
+  "find_store/test/test_find_store.py::test_main[--zip=95112 --unit=km --output=json-0]",
+  "find_store/test/test_find_store.py::test_main[--address='jhd' --unit=km --output=json-0]",
+  "find_store/test/test_find_store.py::test_main[--address='190 Ryland St.' --zx-1]",
+  "find_store/test/test_find_store.py::test_extract_args[args0-expected0]",
+  "find_store/test/test_find_store.py::test_extract_args[args1-expected1]",
+  "find_store/test/test_find_store.py::test_extract_args[args2-expected2]",
+  "find_store/test/test_find_store.py::test_extract_args[args3-expected3]",
+  "find_store/test/test_find_store.py::test_address_geocode[params0-0.5487839026701014]",
+  "find_store/test/test_find_store.py::test_address_geocode[params1-1.3631875966444915]",
+  "find_store/test/test_find_store.py::test_distance[params0-store0-503.16414056484814]",
+  "find_store/test/test_find_store.py::test_distance[params1-store1-7200.35833273643]"
 ]

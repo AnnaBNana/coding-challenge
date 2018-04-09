@@ -1,52 +1,54 @@
-# Coding challenge
+# Gove Collective Coding Challenge: Store Locator
 
-In this repo there is store-locations.csv
+## Installation:
 
-This is a tabular dataset of the locations of every store of a major national retail chain.
+Download and unzip.
 
-# Deliverables
+Use of a virtual environment it recommended
 
-Please download the file (rather than forking this repo), do the exercise, and then upload to your own repo.
-
-Write a command-line application that uses the data to conform to the following specification (note that this specification conforms to http://docopt.org/)
-
-```
-Find Store
-  find_store will locate the nearest store (as the vrow flies) from
-  store-locations.csv, print the matching store address, as well as
-  the distance to that store.
-
-Usage:
-  find_store --address="<address>"
-  find_store --address="<address>" [--units=(mi|km)] [--output=text|json]
-  find_store --zip=<zip>
-  find_store --zip=<zip> [--units=(mi|km)] [--output=text|json]
-
-Options:
-  --zip=<zip>          Find nearest store to this zip code. If there are multiple best-matches, return the first.
-  --address            Find nearest store to this address. If there are multiple best-matches, return the first.
-  --units=(mi|km)      Display units in miles or kilometers [default: mi]
-  --output=(text|json) Output in human-readable text, or in JSON (e.g. machine-readable) [default: text]
-
-Example
-  find_store --address="1770 Union St, San Francisco, CA 94123"
-  find_store --zip=94115 --units=km
+```bash
+$ sudo pip3 install virtualenv
+$ python3 -m virtualenv env
+$ source env/bin/activate
 ```
 
-Additionally:
+In package root run the following command:
 
-- Please write up a paragraph or two about how your solution works, any assumptions or caveats, and put it in a readme file.
-- Your solution should be well-tested in the testing framework of your choice. Commit the test suite to your repo.
-- The output format is not rigidly specified. Use your judgement for both the text and json formats.
+```bash
+$ source install.sh
+```
 
-Send me a github link to the final project.
+The command `find_store` is now available in your `env` virtual environment.
 
-# Notes
+Run command `find_store` for usage.
 
-Feel free to do this in whatever language you would like, and focus on the problem itself (rather than framework/scaffolding). Please make sure it's reasonably easy to run your code and there are clear instructions for doing so.
+## Notes
 
-You will need to use an external geocoding service. However please implement the distance calculation in your own code. To the extent you need any algorithms, I'm not expecting you to invent anything from scratch, so use Google & external libraries judiciously, and cite/document appropriately.
+This solution uses docopt to access arguments passed to the module through the bash terminal. The module's main function drives the rest of the application, including an address model for address data entered by the user. 
 
-You can add polish or an extra features if you'd like, but remember that software is about tradeoffs and *by far the most important thing is delivering working, practical software that solves the problem of finding the closest store location*. The goal is not to take up a bunch of your time, but see you solve a problem that looks very much like the type of work we do all the time.
+Tests are done using the pytest module and are simple, aiming to cover the most critical functionality.
 
-There are a ton of different ways to skin this cat -- be smart, be practical, thanks, and good luck!
+The find store command can be run from any location in the command line as long as module contents are not moved or changed. 
+
+This module is designed to be self-explanatory and intuitive and should be possible to use simply by checking usage with the base command. The module will function with any input and return appropriate error responses when run from the command line.
+
+I chose a standard JSON format for JSON output and a mailing address format for text output.
+
+Tests can be run by calling pytest on the test directory. Dependencies were installed during package installation.
+
+Example testing call from module root directory:
+
+```bash
+$ pytest find_store/test
+```
+
+## Notes about the code:
+
+There are several things I would improve given another refactor:
+
+- Abstract out the display functions into a class called Display with subclasses JSONDisplay and TextDisplay.
+- Scrape the CSV one time, use it as a seed for a Mongo database.
+  - Pro: faster!
+  - Con: harder to update, could solve this with a seed script.
+- During database seeding geocode each store location so it can be converted into the same address object as the user entered data. This would make the application less fragile and easier to understand.
+- Handle the possibility that the CSV file is not formatted as expected and return a useful error message about formatting to the user.

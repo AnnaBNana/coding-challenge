@@ -2,23 +2,25 @@ import requests
 import json
 import math
 import csv
+import os
 
 from .keys import GEOCODE_KEY
 
 class Address():
-    def __init__(self, query_params):
-        self.geocode_json = self.geocode(query_params)
-        self.unit = query_params["unit"]
-        self.output = query_params["output"]
+    def __init__(self, args):
+        self.geocode_json = None
+        self.unit = args["unit"]
+        self.output = args["output"]
         self.errors = ""
 
     # gets coordinates from google places, returns json response
-    def geocode(self, query_params):
-        key = query_params['key']
-        val = query_params['value']
+    def geocode(self, args):
+        key = args['key']
+        val = args['value']
         url = "https://maps.googleapis.com/maps/api/geocode/json?{}={}&key={}".format(key, val, GEOCODE_KEY)
         res = requests.get(url)
-        return res.json()
+        self.geocode_json = res.json()
+        return self.geocode_json
 
     def get_closest_store(self, filename):
         """
