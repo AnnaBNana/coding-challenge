@@ -4,7 +4,7 @@ import math
 import csv
 import os
 
-from .keys import GEOCODE_KEY
+GEOCODE_KEY = "#########"
 
 class Address():
     def __init__(self, args):

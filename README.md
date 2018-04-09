@@ -17,6 +17,7 @@ In package root run the following command:
 ```bash
 $ source install.sh
 ```
+Get google geocode key and replace "######" in document addressmodule.py with your key.
 
 The command `find_store` is now available in your `env` virtual environment.
 
@@ -46,10 +47,12 @@ $ pytest find_store/test
 
 There are several things I would improve given another refactor:
 
+- Better error messages. I am currently relying on the default errors supplied through docopt and errors returned by the google geocode API.
 - Abstract out the display functions into a class called Display with subclasses JSONDisplay and TextDisplay.
 - Scrape the CSV one time, use it as a seed for a Mongo database.
   - Pro: faster!
   - Con: harder to update, could solve this with a seed script.
-- During database seeding geocode each store location so it can be converted into the same address object as the user entered data. This would make the application less fragile and easier to understand.
+- During database seeding geocode each store location so it can be converted into the same Address object as the user entered data. This would make the application less fragile and easier to understand.
 - Handle the possibility that the CSV file is not formatted as expected and return a useful error message about formatting to the user.
 - Extend testing. This is the first time I've written a command line application, and testing was challenging. I'd like to spend more time figuring out how to do this better.
+- Add prompt for user to enter own google geocode key during setup.
