@@ -1,4 +1,4 @@
-# Gove Collective Coding Challenge: Store Locator
+# Grove Collaborative Coding Challenge: Store Locator
 
 ## Installation:
 
@@ -52,3 +52,4 @@ There are several things I would improve given another refactor:
   - Con: harder to update, could solve this with a seed script.
 - During database seeding geocode each store location so it can be converted into the same address object as the user entered data. This would make the application less fragile and easier to understand.
 - Handle the possibility that the CSV file is not formatted as expected and return a useful error message about formatting to the user.
+- Extend testing. This is the first time I've written a command line application, and testing was challenging. I'd like to spend more time figuring out how to do this better.
