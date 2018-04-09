@@ -10,6 +10,7 @@ class Address():
         self.geocode_json = self.geocode(query_params)
         self.unit = query_params["unit"]
         self.output = query_params["output"]
+        self.errors = ""
 
     # gets coordinates from google places, returns json response
     def geocode(self, query_params):

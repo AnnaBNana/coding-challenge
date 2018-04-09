@@ -1,4 +1,4 @@
 [
-  "find_store/tests/addresstest.py::test_geocode[geocode_obj0-True]",
-  "find_store/tests/addresstest.py::test_geocode[geocode_obj1-False]"
+  "test/addresstest.py::FindStoreTestCase::test_db_servers_ubuntu_ami_in_australia",
+  "test/addresstest.py::FindStoreTestCase::test_with_empty_args"
 ]

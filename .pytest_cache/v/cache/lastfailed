@@ -1,8 +1,20 @@
 {
+  "find_store/test/addresstest.py": true,
+  "find_store/test/addresstest.py::test_args[argument_list0-True]": true,
+  "find_store/test/addresstest.py::test_main": true,
+  "find_store/test/addresstest.py::test_main[argument_list0-expected0]": true,
+  "find_store/test/addresstest.py::test_main[argument_list1-expected1]": true,
+  "find_store/tests/addresstest.py": true,
   "find_store/tests/addresstest.py::test_distance": true,
   "find_store/tests/addresstest.py::test_find_store": true,
   "find_store/tests/addresstest.py::test_geocode[geocode_obj0]": true,
   "find_store/tests/addresstest.py::test_geocode[geocode_obj1-True]": true,
   "find_store/tests/addresstest.py::test_geocode[geocode_obj1]": true,
-  "find_store/tests/addresstest.py::test_is_valid": true
+  "find_store/tests/addresstest.py::test_is_valid": true,
+  "find_store/tests/addresstest.py::test_main[--address=190 Ryland St. #4213 San Jose, Ca 94538-True]": true,
+  "find_store/tests/addresstest.py::test_main[argument_list0-True]": true,
+  "test/addresstest.py::FindStoreTestCase::test_db_servers_ubuntu_ami_in_australia": true,
+  "test/addresstest.py::FindStoreTestCase::test_with_empty_args": true,
+  "test/addresstest.py::test_extract_args[argument_list0-expected0]": true,
+  "test/addresstest.py::test_extract_args[argument_list1-expected1]": true
 }

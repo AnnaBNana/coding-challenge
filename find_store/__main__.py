@@ -5,7 +5,6 @@ from docopt import docopt
 
 from .addressmodule import Address
 
-
 def docs():
     """
     Find Store
@@ -24,10 +23,6 @@ def docs():
     --address=<address>  Find nearest store to this address. If there are multiple best-matches, return the first.
     --units=(mi|km)      Display units in miles or kilometers [default: mi]
     --output=(text|json) Output in human-readable text, or in JSON (e.g. machine-readable) [default: text]
-
-    Example
-    find_store --address="1770 Union St, San Francisco, CA 94123"
-    find_store --zip=94115 --units=km
     """
 
 # from .addressmodule import Address
@@ -36,18 +31,18 @@ def main():
     Invoked when package find_store is invoked. 
     see setup.py for config
     '''
-    # creates a query string from required args
-    attrs = extract_args()
+    # creates a dictionary of args
+    args = docopt(docs.__doc__)
+    attrs = extract_args(args)
     # creates address object and gets coords
     address = Address(attrs)
-    # show error if no results
+    # shows error if no results
     if not address.geocode_json['results']:
         return address.geocode_json['status']
     # finds store closest to the address or zip entered
     closest_store = address.get_closest_store("store-locations.csv")
-    #vdisplay closest store data
+    # display closest store data
     display(closest_store, address.output)
-
 
 # TODO: this would be better handled as a display object with 2 subclasses
 def display(closest_store, style):
@@ -87,12 +82,11 @@ def json_output(closest_store):
     store_string = json.dumps(store_dict)
     print(store_string)
 
-def extract_args():
+def extract_args(args):
     """
     extracts arguments passed in from command line 
     converts to data needed for query, calculation, and display
     """
-    args = docopt(docs.__doc__, help=True, options_first=True)
     cli_args = {}
     if args['--address']:
         cli_args["key"] = "address"
